@@ -1,0 +1,10 @@
+# Original working media is intentionally kept local. Optimized web assets are committed.
+Media/
+.preview-contact-sheet.jpg
+.preview-*.png
+
+# Local tooling and platform files
+.netlify/
+.DS_Store
+Thumbs.db
+node_modules/
