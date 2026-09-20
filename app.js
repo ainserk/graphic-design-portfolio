@@ -1,7 +1,19 @@
 const data = window.PORTFOLIO_DATA || { images: [], videos: [] };
-const PAGE_SIZE = 24;
-let activeFilter = "all";
-let visibleCount = PAGE_SIZE;
+const folderGroups = [
+  { slug: "bunting", title: "Bunting", labels: ["Bunting"] },
+  { slug: "durian-notes", title: "Durian Notes", labels: ["Editorial Notes"] },
+  { slug: "ecommerce-posters", title: "E-commerce Posters", labels: ["E-commerce Campaigns"] },
+  { slug: "ai-generate", title: "AI Generate", labels: ["AI Experiments"] },
+  { slug: "label-stickers", title: "Label Sticker Bottle", labels: ["Packaging Design"] },
+  { slug: "menu", title: "Menu", labels: ["Menu Design"] },
+  { slug: "merchandise", title: "Merchandise", labels: ["Merchandise"] },
+  { slug: "photography", title: "Photography", labels: ["Photography", "Wedding Photography"] },
+  { slug: "posters", title: "Posters", labels: ["Campaign Posters"] },
+  { slug: "social-media", title: "Social Media Posting", labels: ["Social Campaigns"] },
+  { slug: "tray-paper", title: "Tray Paper", labels: ["Print Collateral"] },
+  { slug: "tv-menu", title: "TV Menu", labels: ["Digital Menus"] },
+  { slug: "wedding-cards", title: "Wedding Card Freelance", labels: ["Wedding Stationery"] },
+];
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -43,27 +55,59 @@ function renderMotion() {
   });
 }
 
-function filteredImages() {
-  const nonFeatured = data.images.filter((item) => !item.featured);
-  return activeFilter === "all" ? nonFeatured : nonFeatured.filter((item) => item.category === activeFilter);
+function itemsForFolder(folder) {
+  return data.images.filter((item) => folder.labels.includes(item.categoryLabel));
 }
 
-function renderArchive() {
-  const grid = $("#archive-grid");
-  const items = filteredImages();
-  grid.innerHTML = "";
-  items.slice(0, visibleCount).forEach((item) => {
+function openFolder(folder) {
+  const dialog = $("#folder-dialog");
+  const gallery = $("#folder-gallery");
+  const items = itemsForFolder(folder);
+  $("#folder-dialog-title").textContent = folder.title;
+  $("#folder-dialog-count").textContent = `${items.length} artwork${items.length === 1 ? "" : "s"}`;
+  gallery.innerHTML = "";
+  items.forEach((item, index) => {
     const figure = document.createElement("figure");
-    figure.className = "archive-item";
+    figure.className = "folder-artwork";
     figure.tabIndex = 0;
     figure.setAttribute("role", "button");
     figure.setAttribute("aria-label", `View ${item.title}`);
-    figure.innerHTML = `<img src="${item.src}" alt="${escapeText(item.title)}" loading="lazy" width="${item.width}" height="${item.height}" /><figcaption class="archive-label"><span>${escapeText(item.title)}</span><span>${escapeText(item.categoryLabel)}</span></figcaption>`;
+    figure.innerHTML = `<img src="${item.src}" alt="${escapeText(item.title)}" ${index > 7 ? 'loading="lazy"' : ""} width="${item.width}" height="${item.height}" /><figcaption><strong>${escapeText(item.title)}</strong><span>View artwork ↗</span></figcaption>`;
     figure.addEventListener("click", () => openLightbox(item));
     figure.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item); });
-    grid.append(figure);
+    gallery.append(figure);
   });
-  $("#load-more").hidden = visibleCount >= items.length;
+  dialog.showModal();
+  document.body.classList.add("is-locked");
+}
+
+function closeFolder() {
+  const dialog = $("#folder-dialog");
+  dialog.close();
+  $("#folder-gallery").innerHTML = "";
+  document.body.classList.remove("is-locked");
+}
+
+function renderFolders() {
+  const grid = $("#folder-grid");
+  folderGroups.forEach((folder, index) => {
+    const items = itemsForFolder(folder);
+    if (!items.length) return;
+    const previews = items.slice(0, 3).map((item, previewIndex) => `<img src="${item.src}" alt="" loading="lazy" style="--preview-index:${previewIndex}" />`).join("");
+    const button = document.createElement("button");
+    button.className = "category-folder reveal";
+    button.type = "button";
+    button.setAttribute("aria-label", `Open ${folder.title}, ${items.length} artworks`);
+    button.innerHTML = `
+      <span class="folder-previews" aria-hidden="true">${previews}</span>
+      <span class="folder-shape">
+        <span class="folder-number">${String(index + 1).padStart(2, "0")}</span>
+        <strong>${escapeText(folder.title)}</strong>
+        <span class="folder-meta"><span>${items.length} artworks</span><span>Open ↗</span></span>
+      </span>`;
+    button.addEventListener("click", () => openFolder(folder));
+    grid.append(button);
+  });
 }
 
 function openLightbox(item, isVideo = false) {
@@ -84,18 +128,7 @@ function closeLightbox() {
   if (video) video.pause();
   dialog.close();
   $(".lightbox-media", dialog).innerHTML = "";
-  document.body.classList.remove("is-locked");
-}
-
-function initFilters() {
-  $$(".filter").forEach((button) => button.addEventListener("click", () => {
-    $$(".filter").forEach((item) => item.classList.remove("is-active"));
-    button.classList.add("is-active");
-    activeFilter = button.dataset.filter;
-    visibleCount = PAGE_SIZE;
-    renderArchive();
-  }));
-  $("#load-more").addEventListener("click", () => { visibleCount += PAGE_SIZE; renderArchive(); });
+  document.body.classList.toggle("is-locked", Boolean($("#folder-dialog")?.open));
 }
 
 function initInteractions() {
@@ -103,6 +136,11 @@ function initInteractions() {
   $(".lightbox-close", dialog).addEventListener("click", closeLightbox);
   dialog.addEventListener("click", (event) => { if (event.target === dialog) closeLightbox(); });
   dialog.addEventListener("cancel", (event) => { event.preventDefault(); closeLightbox(); });
+
+  const folderDialog = $("#folder-dialog");
+  $(".folder-dialog-close", folderDialog).addEventListener("click", closeFolder);
+  folderDialog.addEventListener("click", (event) => { if (event.target === folderDialog) closeFolder(); });
+  folderDialog.addEventListener("cancel", (event) => { event.preventDefault(); closeFolder(); });
 
   const toggle = $(".menu-toggle");
   const nav = $("#site-nav");
@@ -136,8 +174,7 @@ function init() {
   initHero();
   renderFeatured();
   renderMotion();
-  renderArchive();
-  initFilters();
+  renderFolders();
   initInteractions();
 }
 

@@ -136,20 +136,11 @@
 
       <section class="archive section-shell" id="archive">
         <div class="section-heading compact reveal">
-          <div><span class="section-no">05</span><span class="kicker">The work archive</span></div>
-          <h2>More from<br /><em>the studio.</em></h2>
+          <div><span class="section-no">05</span><span class="kicker">Browse by category</span></div>
+          <h2>Open a folder.<br /><em>Find the work.</em></h2>
         </div>
-        <div class="filter-bar" role="toolbar" aria-label="Filter portfolio work">
-          <button class="filter is-active" data-filter="all">All</button>
-          <button class="filter" data-filter="campaigns">Campaigns</button>
-          <button class="filter" data-filter="branding">Branding</button>
-          <button class="filter" data-filter="print">Print</button>
-          <button class="filter" data-filter="photography">Photography</button>
-          <button class="filter" data-filter="illustration">Illustration</button>
-          <button class="filter" data-filter="experimental">Experimental</button>
-        </div>
-        <div class="archive-grid" id="archive-grid"></div>
-        <div class="archive-actions"><button class="button button-dark" id="load-more">Show more work <span>＋</span></button></div>
+        <p class="folder-intro reveal">Every project is organised by its original media category. Choose a folder to view all artwork inside without making this page endlessly long.</p>
+        <div class="folder-grid" id="folder-grid"></div>
       </section>
 
       <section class="about section-shell" id="practice">
@@ -188,6 +179,14 @@
       <p>Graphic design & visual stories<br />based in Malaysia.</p>
       <div class="footer-meta"><a href="https://github.com/ainserk" target="_blank" rel="noreferrer">GitHub ↗</a><span>© <span id="year"></span> Ain Nadhirah</span></div>
     </footer>
+
+    <dialog class="folder-dialog" id="folder-dialog">
+      <div class="folder-dialog-head">
+        <div><span>Portfolio folder</span><h2 id="folder-dialog-title"></h2><p id="folder-dialog-count"></p></div>
+        <button class="folder-dialog-close" aria-label="Close category folder">Close ✕</button>
+      </div>
+      <div class="folder-gallery" id="folder-gallery"></div>
+    </dialog>
 
     <dialog class="lightbox" id="lightbox">
       <button class="lightbox-close" aria-label="Close preview">Close ✕</button>
