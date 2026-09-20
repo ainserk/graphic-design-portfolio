@@ -198,7 +198,8 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
 .motion-title h3 { margin: 0; font-size: 1.2rem; }
 .play { flex: 0 0 48px; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; backdrop-filter: blur(8px); }
 
-.archive { padding-block: 160px; }
+.archive { position: relative; padding-block: 160px; }
+.anchor-alias { position: absolute; top: 0; }
 .section-heading.compact { margin-bottom: 58px; }
 .folder-intro { max-width: 620px; margin: -18px 0 62px auto; color: #6b4b5a; font-size: .92rem; line-height: 1.65; }
 .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 42px 22px; }
