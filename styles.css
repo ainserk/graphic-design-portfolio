@@ -124,7 +124,7 @@ h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; lett
 .badge-copy div { display: flex; flex-direction: column; }
 .badge-copy strong { color: var(--berry-dark); font-size: 1.05rem; text-transform: uppercase; letter-spacing: -.02em; }
 .badge-copy span { margin-top: 3px; color: var(--berry); font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-.badge-copy small { font-size: .55rem; text-transform: uppercase; letter-spacing: .08em; opacity: .58; }
+.badge-copy small { margin-left: auto; font-size: .55rem; text-transform: uppercase; letter-spacing: .08em; opacity: .58; }
 .lanyard-note { position: absolute; z-index: 4; right: -2%; bottom: 10%; color: var(--accent); font-family: var(--hand); font-size: 1.45rem; font-weight: 700; transform: rotate(-8deg); }
 .intro-copy { position: relative; max-width: 720px; }
 .intro-label { margin: 0 0 46px; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; }
