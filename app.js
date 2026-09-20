@@ -72,7 +72,7 @@ function openFolder(folder) {
     figure.tabIndex = 0;
     figure.setAttribute("role", "button");
     figure.setAttribute("aria-label", `View ${item.title}`);
-    figure.innerHTML = `<img src="${item.src}" alt="${escapeText(item.title)}" ${index > 7 ? 'loading="lazy"' : ""} width="${item.width}" height="${item.height}" /><figcaption><strong>${escapeText(item.title)}</strong><span>View artwork ↗</span></figcaption>`;
+    figure.innerHTML = `<img src="${item.src}" alt="${escapeText(item.title)}" loading="${index > 7 ? "lazy" : "eager"}" ${index < 4 ? 'fetchpriority="high"' : ""} width="${item.width}" height="${item.height}" /><figcaption><strong>${escapeText(item.title)}</strong><span>View artwork ↗</span></figcaption>`;
     figure.addEventListener("click", () => openLightbox(item));
     figure.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item); });
     gallery.append(figure);

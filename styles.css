@@ -227,10 +227,16 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
 .folder-dialog-head h2 { margin-top: 7px; color: var(--berry-dark); font-size: clamp(2.5rem, 5vw, 5.4rem); line-height: .8; }
 .folder-dialog-head p { margin: 12px 0 0; font-family: var(--hand); color: var(--berry); font-size: 1.1rem; font-weight: 700; }
 .folder-dialog-close { padding: 11px 16px; border: 1px solid var(--berry-dark); border-radius: 100px; color: var(--white); background: var(--berry); box-shadow: 3px 3px 0 var(--berry-dark); cursor: pointer; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-.folder-gallery { min-height: 0; overflow-y: auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 18px; padding: 28px 32px 42px; }
-.folder-artwork { min-width: 0; margin: 0; padding: 7px; border: 1px solid var(--line); background: var(--white); box-shadow: 5px 6px 0 var(--blush); cursor: zoom-in; }
-.folder-artwork img { aspect-ratio: 4 / 3; object-fit: cover; background: var(--blush); }
-.folder-artwork figcaption { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding: 10px 4px 3px; }
+.folder-gallery { min-height: 0; overflow-y: auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 36px 12px; padding: 32px 32px 52px; background-color: #f8e9ee; background-image: radial-gradient(rgba(166,47,99,.1) .8px, transparent .8px), linear-gradient(180deg, rgba(255,255,255,.48), transparent 35%); background-size: 9px 9px, 100% 100%; }
+.folder-artwork { position: relative; min-width: 0; margin: 0; padding: 38px 7px 7px; border: 0; background: transparent; box-shadow: none; cursor: zoom-in; transform: rotate(-.7deg); transform-origin: top center; transition: transform .25s; }
+.folder-artwork:nth-child(even) { transform: rotate(.8deg); }
+.folder-artwork:nth-child(3n) { transform: rotate(-.25deg); }
+.folder-artwork::before { content: ""; position: absolute; z-index: 0; top: 16px; right: -12px; left: -12px; height: 6px; border-radius: 100px; background: repeating-linear-gradient(105deg, #b8844e 0 4px, #d5ad74 4px 8px, #936238 8px 11px); box-shadow: 0 2px 2px rgba(63,30,19,.24); }
+.folder-artwork::after { content: ""; position: absolute; z-index: 3; top: 3px; left: 50%; width: 16px; height: 38px; border: 1px solid #91612e; border-radius: 3px 3px 5px 5px; background: linear-gradient(90deg,#bd7c36 0 22%,#e1b36b 22% 72%,#ad6d2e 72%); box-shadow: 2px 3px 2px rgba(65,30,16,.26), inset 0 -7px 0 rgba(115,65,25,.18); transform: translateX(-50%) rotate(3deg); }
+.folder-artwork:nth-child(even)::after { transform: translateX(-50%) rotate(-4deg); }
+.folder-artwork img { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: auto; border: 7px solid var(--white); object-fit: contain; background: var(--white); box-shadow: 5px 8px 14px rgba(82,31,53,.2); }
+.folder-artwork:hover { z-index: 4; transform: translateY(-5px) rotate(0); }
+.folder-artwork figcaption { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin: 0 7px; padding: 10px 8px 8px; border-radius: 0 0 4px 4px; background: var(--white); box-shadow: 5px 6px 0 rgba(237,162,190,.5); }
 .folder-artwork figcaption strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .69rem; }
 .folder-artwork figcaption span { flex: 0 0 auto; color: var(--berry); font-family: var(--hand); font-size: .75rem; font-weight: 700; }
 
