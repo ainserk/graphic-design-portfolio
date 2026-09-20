@@ -38,6 +38,9 @@ button { color: inherit; font: inherit; }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #60bd52; box-shadow: 0 0 0 5px rgba(96, 189, 82, .15); }
 h1 { margin: 0; font-size: clamp(5rem, 8vw, 9.4rem); line-height: .77; letter-spacing: -.075em; font-weight: 600; }
 h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; letter-spacing: -.025em; }
+.portfolio-title { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; letter-spacing: 0; }
+.welcome-line { margin-bottom: .22em; font-size: clamp(1rem, 1.8vw, 1.55rem); font-weight: 700; text-transform: uppercase; letter-spacing: .22em; }
+.portfolio-word { font-size: clamp(5rem, 10vw, 10.5rem); line-height: .72; font-style: italic; letter-spacing: -.055em; }
 .hero-intro { max-width: 520px; margin: 48px 0 30px; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.55; }
 .text-link { display: inline-flex; align-items: center; gap: 18px; padding-bottom: 6px; border-bottom: 1px solid; text-decoration: none; font-size: .9rem; font-weight: 600; }
 .text-link span { transition: transform .2s; }
@@ -175,6 +178,8 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
   .nav-cta { border: 0; border-radius: 0; }
   .hero { min-height: 950px; padding-top: 122px; }
   h1 { font-size: clamp(4.2rem, 21vw, 6.7rem); }
+  .welcome-line { font-size: .88rem; letter-spacing: .18em; }
+  .portfolio-word { font-size: clamp(4.6rem, 19vw, 6.7rem); }
   .hero-intro { margin-top: 32px; }
   .hero-stage { min-height: 430px; }
   .hero-card-a { left: 1%; width: 53%; height: 72%; }
