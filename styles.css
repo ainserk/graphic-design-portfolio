@@ -146,14 +146,15 @@ h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; lett
 .software-item { min-width: 0; height: 76px; display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid rgba(255,255,255,.28); border-radius: 8px; background: rgba(104,22,61,.38); }
 .software-logo { flex: 0 0 40px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 7px; color: var(--white); background: var(--ink); font-size: 1.05rem; font-weight: 700; letter-spacing: -.04em; }
 .software-logo svg { width: 29px; height: 29px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.software-logo img { width: 100%; height: 100%; border-radius: inherit; object-fit: contain; }
 .software-item strong { min-width: 0; font-size: .57rem; line-height: 1.25; text-transform: uppercase; letter-spacing: .04em; }
 .software-ai .software-logo { color: #ff9a00; background: #300; }
 .software-lr .software-logo { color: #31a8ff; background: #001e36; }
 .software-ps .software-logo { color: #31a8ff; background: #001e36; }
 .software-capcut .software-logo { color: #111; background: #fff; }
-.software-firefly .software-logo { color: #ffcf83; background: linear-gradient(145deg,#5a145d,#ed315e); }
-.software-chatgpt .software-logo { color: #fff; background: #0e7c6b; }
-.software-magnific .software-logo { color: #fff; background: linear-gradient(145deg,#7c3aed,#ec4899); font-size: .86rem; }
+.software-firefly .software-logo { background: transparent; }
+.software-chatgpt .software-logo { background: #fff; }
+.software-magnific .software-logo { background: #111; }
 
 .ticker { overflow: hidden; border-block: 1px solid var(--berry-dark); color: var(--white); background: var(--berry); transform: rotate(-1.2deg) scale(1.02); box-shadow: 0 7px 0 var(--pink); }
 .ticker-track { width: max-content; display: flex; align-items: center; gap: 32px; padding: 18px 0; animation: ticker 25s linear infinite; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
