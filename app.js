@@ -28,6 +28,30 @@ const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const escapeText = (value = "") => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 let videoStoryObserver;
+let videoStoryResizeHandler;
+
+function drawVideoStoryMap(gallery) {
+  $(".video-story-map", gallery)?.remove();
+  const pins = $$(".video-pin", gallery);
+  if (pins.length < 2) return;
+  const galleryRect = gallery.getBoundingClientRect();
+  const points = pins.map((pin) => {
+    const rect = pin.getBoundingClientRect();
+    return `${Math.round(rect.left - galleryRect.left + gallery.scrollLeft + rect.width / 2)},${Math.round(rect.top - galleryRect.top + gallery.scrollTop + rect.height / 2)}`;
+  }).join(" ");
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.classList.add("video-story-map");
+  svg.setAttribute("viewBox", `0 0 ${gallery.scrollWidth} ${gallery.scrollHeight}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.setAttribute("aria-hidden", "true");
+  svg.style.width = `${gallery.scrollWidth}px`;
+  svg.style.height = `${gallery.scrollHeight}px`;
+  svg.innerHTML = `<polyline points="${points}" />${points.split(" ").map((point) => {
+    const [cx, cy] = point.split(",");
+    return `<circle cx="${cx}" cy="${cy}" r="9" />`;
+  }).join("")}`;
+  gallery.append(svg);
+}
 
 function imageCard(item, index) {
   const article = document.createElement("article");
@@ -68,7 +92,6 @@ function openVideoFolder(folder) {
     article.setAttribute("aria-label", `Play ${item.title}`);
     article.innerHTML = `
       <div class="video-story-decor" aria-hidden="true"><span class="story-loop">loop</span><span class="story-hearts">♥ ♥</span><span class="story-tape"></span></div>
-      <div class="video-story-thread" aria-hidden="true"><i></i><i></i></div>
       <div class="video-polaroid">
         <span class="video-pin" aria-hidden="true"></span>
         <div class="video-folder-poster">
@@ -91,12 +114,17 @@ function openVideoFolder(folder) {
   }), { root: gallery, threshold: [.2, .55, .85] });
   $$(".video-story-slide", gallery).forEach((slide) => videoStoryObserver.observe(slide));
   $(".video-story-slide", gallery)?.classList.add("is-active");
+  requestAnimationFrame(() => requestAnimationFrame(() => drawVideoStoryMap(gallery)));
+  videoStoryResizeHandler = () => drawVideoStoryMap(gallery);
+  window.addEventListener("resize", videoStoryResizeHandler);
   document.body.classList.add("is-locked");
 }
 
 function closeVideoFolder() {
   const dialog = $("#video-folder-dialog");
   videoStoryObserver?.disconnect();
+  if (videoStoryResizeHandler) window.removeEventListener("resize", videoStoryResizeHandler);
+  videoStoryResizeHandler = null;
   dialog.close();
   $("#video-folder-gallery").innerHTML = "";
   document.body.classList.remove("is-locked");
