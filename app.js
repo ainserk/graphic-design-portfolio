@@ -14,6 +14,15 @@ const folderGroups = [
   { slug: "tv-menu", title: "TV Menu", labels: ["Digital Menus"] },
   { slug: "wedding-cards", title: "Wedding Card Freelance", labels: ["Wedding Stationery"] },
 ];
+const videoFolderGroups = [
+  { slug: "awareness", title: "Awareness" },
+  { slug: "engagement", title: "Engagement" },
+  { slug: "hardsell-video", title: "Hardsell Video" },
+  { slug: "product-focus", title: "Product Focus" },
+  { slug: "ugc-video", title: "UGC Video" },
+  { slug: "video-editing", title: "Video Editing" },
+  { slug: "video-generate", title: "Video Generate" },
+];
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -38,20 +47,64 @@ function renderFeatured() {
   data.images.filter((item) => item.featured).slice(0, 6).forEach((item, index) => grid.append(imageCard(item, index)));
 }
 
-function renderMotion() {
-  const grid = $("#motion-grid");
-  data.videos.forEach((item) => {
+function videosForFolder(folder) {
+  return data.videos.filter((item) => item.category === folder.slug);
+}
+
+function openVideoFolder(folder) {
+  const dialog = $("#video-folder-dialog");
+  const gallery = $("#video-folder-gallery");
+  const items = videosForFolder(folder);
+  $("#video-folder-dialog-title").textContent = folder.title;
+  $("#video-folder-dialog-count").textContent = `${items.length} video${items.length === 1 ? "" : "s"}`;
+  gallery.innerHTML = "";
+  items.forEach((item, index) => {
     const article = document.createElement("article");
-    article.className = `motion-card ${item.orientation === "landscape" ? "landscape" : ""}`;
+    article.className = `video-folder-item ${item.orientation === "landscape" ? "landscape" : "portrait"}`;
     article.tabIndex = 0;
     article.setAttribute("role", "button");
     article.setAttribute("aria-label", `Play ${item.title}`);
     article.innerHTML = `
-      <img src="${item.poster}" loading="lazy" alt="${escapeText(item.title)} video preview" />
-      <div class="motion-overlay"><span class="motion-type">${escapeText(item.type)}</span><div class="motion-title"><h3>${escapeText(item.title)}</h3><span class="play">▶</span></div></div>`;
+      <div class="video-folder-poster">
+        <img src="${item.poster}" alt="${escapeText(item.title)} video preview" loading="${index > 5 ? "lazy" : "eager"}" />
+        <span class="video-play" aria-hidden="true">▶</span>
+      </div>
+      <div class="video-folder-meta"><strong>${escapeText(item.title)}</strong><span>Play video ↗</span></div>`;
     article.addEventListener("click", () => openLightbox(item, true));
     article.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item, true); });
-    grid.append(article);
+    gallery.append(article);
+  });
+  dialog.showModal();
+  document.body.classList.add("is-locked");
+}
+
+function closeVideoFolder() {
+  const dialog = $("#video-folder-dialog");
+  dialog.close();
+  $("#video-folder-gallery").innerHTML = "";
+  document.body.classList.remove("is-locked");
+}
+
+function renderVideoFolders() {
+  const grid = $("#video-folder-grid");
+  videoFolderGroups.forEach((folder, index) => {
+    const items = videosForFolder(folder);
+    if (!items.length) return;
+    const previews = items.slice(0, 3).map((item, previewIndex) => `<img src="${item.poster}" alt="" loading="lazy" style="--preview-index:${previewIndex}" />`).join("");
+    const button = document.createElement("button");
+    button.className = "video-category-folder reveal";
+    button.type = "button";
+    const videoCountLabel = `${items.length} video${items.length === 1 ? "" : "s"}`;
+    button.setAttribute("aria-label", `Open ${folder.title}, ${videoCountLabel}`);
+    button.innerHTML = `
+      <span class="video-folder-previews" aria-hidden="true">${previews}</span>
+      <span class="video-folder-shape">
+        <span class="video-folder-number">${String(index + 1).padStart(2, "0")}</span>
+        <strong>${escapeText(folder.title)}</strong>
+        <span class="video-folder-summary"><span>${videoCountLabel}</span><span>Open ▶</span></span>
+      </span>`;
+    button.addEventListener("click", () => openVideoFolder(folder));
+    grid.append(button);
   });
 }
 
@@ -128,7 +181,7 @@ function closeLightbox() {
   if (video) video.pause();
   dialog.close();
   $(".lightbox-media", dialog).innerHTML = "";
-  document.body.classList.toggle("is-locked", Boolean($("#folder-dialog")?.open));
+  document.body.classList.toggle("is-locked", Boolean($("#folder-dialog")?.open || $("#video-folder-dialog")?.open));
 }
 
 function initInteractions() {
@@ -141,6 +194,11 @@ function initInteractions() {
   $(".folder-dialog-close", folderDialog).addEventListener("click", closeFolder);
   folderDialog.addEventListener("click", (event) => { if (event.target === folderDialog) closeFolder(); });
   folderDialog.addEventListener("cancel", (event) => { event.preventDefault(); closeFolder(); });
+
+  const videoFolderDialog = $("#video-folder-dialog");
+  $(".video-folder-dialog-close", videoFolderDialog).addEventListener("click", closeVideoFolder);
+  videoFolderDialog.addEventListener("click", (event) => { if (event.target === videoFolderDialog) closeVideoFolder(); });
+  videoFolderDialog.addEventListener("cancel", (event) => { event.preventDefault(); closeVideoFolder(); });
 
   const toggle = $(".menu-toggle");
   const nav = $("#site-nav");
@@ -173,7 +231,7 @@ function init() {
   $("#year").textContent = new Date().getFullYear();
   initHero();
   renderFeatured();
-  renderMotion();
+  renderVideoFolders();
   renderFolders();
   initInteractions();
 }

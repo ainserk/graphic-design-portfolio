@@ -14,8 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="assets/portfolio-data.js?v=20260920-3" defer></script>
-    <script src="app.js?v=20260920-3" defer></script>
+    <script src="assets/portfolio-data.js?v=20260926-1" defer></script>
+    <script src="app.js?v=20260926-1" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -139,10 +139,11 @@
       <section class="motion-section" id="motion">
         <div class="section-shell">
           <div class="section-heading light reveal">
-            <div><span class="section-no">05</span><span class="kicker">Motion & content</span></div>
-            <h2>Designed to move.<br /><em>Made to connect.</em></h2>
+            <div><span class="section-no">05</span><span class="kicker">Video archive</span></div>
+            <h2>Open a video folder.<br /><em>Press play.</em></h2>
           </div>
-          <div class="motion-grid" id="motion-grid"></div>
+          <p class="video-folder-intro reveal">Videos are grouped by their original media category, so every piece is easy to find and review.</p>
+          <div class="video-folder-grid" id="video-folder-grid"></div>
         </div>
       </section>
 
@@ -189,6 +190,14 @@
         <button class="folder-dialog-close" aria-label="Close category folder">Close ✕</button>
       </div>
       <div class="folder-gallery" id="folder-gallery"></div>
+    </dialog>
+
+    <dialog class="video-folder-dialog" id="video-folder-dialog">
+      <div class="video-folder-dialog-head">
+        <div><span>Video folder</span><h2 id="video-folder-dialog-title"></h2><p id="video-folder-dialog-count"></p></div>
+        <button class="video-folder-dialog-close" aria-label="Close video folder">Close ✕</button>
+      </div>
+      <div class="video-folder-gallery" id="video-folder-gallery"></div>
     </dialog>
 
     <dialog class="lightbox" id="lightbox">
