@@ -27,6 +27,7 @@ const videoFolderGroups = [
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const escapeText = (value = "") => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
+let videoStoryObserver;
 
 function imageCard(item, index) {
   const article = document.createElement("article");
@@ -60,26 +61,42 @@ function openVideoFolder(folder) {
   gallery.innerHTML = "";
   items.forEach((item, index) => {
     const article = document.createElement("article");
-    article.className = `video-folder-item ${item.orientation === "landscape" ? "landscape" : "portrait"}`;
+    article.className = `video-story-slide ${item.orientation === "landscape" ? "landscape" : "portrait"}`;
+    article.style.setProperty("--story-index", index);
     article.tabIndex = 0;
     article.setAttribute("role", "button");
     article.setAttribute("aria-label", `Play ${item.title}`);
     article.innerHTML = `
-      <div class="video-folder-poster">
-        <img src="${item.poster}" alt="${escapeText(item.title)} video preview" loading="${index > 5 ? "lazy" : "eager"}" />
-        <span class="video-play" aria-hidden="true">▶</span>
+      <div class="video-story-decor" aria-hidden="true"><span class="story-loop">loop</span><span class="story-hearts">♥ ♥</span><span class="story-tape"></span></div>
+      <div class="video-story-thread" aria-hidden="true"><i></i><i></i></div>
+      <div class="video-polaroid">
+        <span class="video-pin" aria-hidden="true"></span>
+        <div class="video-folder-poster">
+          <img src="${item.poster}" alt="${escapeText(item.title)} video preview" loading="${index > 2 ? "lazy" : "eager"}" />
+          <span class="video-play" aria-hidden="true">▶</span>
+        </div>
+        <div class="video-folder-meta"><strong>${escapeText(item.title)}</strong><span>Play video ↗</span></div>
       </div>
-      <div class="video-folder-meta"><strong>${escapeText(item.title)}</strong><span>Play video ↗</span></div>`;
+      <span class="video-story-count" aria-hidden="true">${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}</span>
+      ${index < items.length - 1 ? '<span class="video-story-next" aria-hidden="true">Scroll for next ↓</span>' : '<span class="video-story-next is-last" aria-hidden="true">End of folder ✦</span>'}`;
     article.addEventListener("click", () => openLightbox(item, true));
     article.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item, true); });
     gallery.append(article);
   });
   dialog.showModal();
+  gallery.scrollTop = 0;
+  videoStoryObserver?.disconnect();
+  videoStoryObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    entry.target.classList.toggle("is-active", entry.isIntersecting && entry.intersectionRatio >= .55);
+  }), { root: gallery, threshold: [.2, .55, .85] });
+  $$(".video-story-slide", gallery).forEach((slide) => videoStoryObserver.observe(slide));
+  $(".video-story-slide", gallery)?.classList.add("is-active");
   document.body.classList.add("is-locked");
 }
 
 function closeVideoFolder() {
   const dialog = $("#video-folder-dialog");
+  videoStoryObserver?.disconnect();
   dialog.close();
   $("#video-folder-gallery").innerHTML = "";
   document.body.classList.remove("is-locked");
