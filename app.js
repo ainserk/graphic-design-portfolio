@@ -53,25 +53,6 @@ function drawVideoStoryMap(gallery) {
   gallery.append(svg);
 }
 
-function imageCard(item, index) {
-  const article = document.createElement("article");
-  article.className = "project-card reveal";
-  article.tabIndex = 0;
-  article.setAttribute("role", "button");
-  article.setAttribute("aria-label", `View ${item.title}`);
-  article.innerHTML = `
-    <div class="project-image"><img src="${item.src}" alt="${escapeText(item.title)}" ${index > 1 ? 'loading="lazy"' : ""} /></div>
-    <div class="project-meta"><h3>${escapeText(item.title)}</h3><p>${escapeText(item.categoryLabel)}</p></div>`;
-  article.addEventListener("click", () => openLightbox(item));
-  article.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item); });
-  return article;
-}
-
-function renderFeatured() {
-  const grid = $("#featured-grid");
-  data.images.filter((item) => item.featured).slice(0, 6).forEach((item, index) => grid.append(imageCard(item, index)));
-}
-
 function videosForFolder(folder) {
   return data.videos.filter((item) => item.category === folder.slug);
 }
@@ -275,7 +256,6 @@ function initHero() {
 function init() {
   $("#year").textContent = new Date().getFullYear();
   initHero();
-  renderFeatured();
   renderVideoFolders();
   renderFolders();
   initInteractions();
