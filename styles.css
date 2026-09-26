@@ -161,6 +161,18 @@ h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; lett
 .intro-email a i { color: var(--accent); font-family: var(--sans); font-size: .9em; font-style: normal; transition: transform .2s; }
 .intro-email a:hover { color: var(--accent); transform: translateX(3px); }
 .intro-email a:hover i { transform: translate(4px,-4px); }
+.intro-background { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-top: 52px; padding-top: 44px; border-top: 1px solid rgba(255,255,255,.42); }
+.background-column { min-width: 0; }
+.background-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.background-heading > span { width: 34px; height: 34px; display: grid; place-items: center; border: 1px dashed var(--accent); border-radius: 50%; color: var(--accent); font-size: .62rem; font-weight: 700; transform: rotate(-7deg); }
+.background-heading h3 { margin: 0; font-family: var(--serif); font-size: clamp(2.25rem, 3.7vw, 4rem); font-weight: 400; line-height: 1; }
+.background-list { margin: 0; padding: 0; list-style: none; }
+.background-list li { position: relative; display: grid; grid-template-columns: minmax(108px, .34fr) minmax(0, 1fr); gap: 22px; padding: 20px 18px 20px 24px; border-top: 1px solid rgba(255,255,255,.25); }
+.background-list li::before { content: ""; position: absolute; top: 25px; left: 4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255,184,211,.14); }
+.background-list time { padding-top: 2px; color: var(--accent); font-size: .63rem; font-weight: 700; line-height: 1.45; text-transform: uppercase; letter-spacing: .07em; }
+.background-list div { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.background-list strong { font-size: .84rem; line-height: 1.35; text-transform: uppercase; letter-spacing: .035em; }
+.background-list div span { color: rgba(255,255,255,.78); font-size: .76rem; line-height: 1.5; }
 
 .ticker { overflow: hidden; border-block: 1px solid var(--berry-dark); color: var(--white); background: var(--berry); transform: rotate(-1.2deg) scale(1.02); box-shadow: 0 7px 0 var(--pink); }
 .ticker-track { width: max-content; display: flex; align-items: center; gap: 32px; padding: 18px 0; animation: ticker 25s linear infinite; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
@@ -427,6 +439,9 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
   .software-row { margin-right: -18px; }
   .intro-email { order: 4; align-items: flex-start; flex-direction: column; gap: 12px; margin-top: 0; }
   .intro-email a { max-width: 100%; font-size: clamp(1.2rem, 6vw, 1.7rem); overflow-wrap: anywhere; }
+  .intro-background { order: 5; grid-template-columns: 1fr; gap: 48px; margin-top: 0; padding-top: 36px; }
+  .background-list li { grid-template-columns: 1fr; gap: 7px; padding-block: 18px; }
+  .background-list time { padding-left: 2px; }
   .hero { min-height: 950px; padding-top: 122px; }
   h1 { font-size: clamp(4.2rem, 21vw, 6.7rem); }
   .welcome-line { font-size: 1.05rem; letter-spacing: .16em; }
