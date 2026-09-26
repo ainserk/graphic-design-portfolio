@@ -82,9 +82,11 @@ h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; lett
 .cover-hero::before { content: ""; position: absolute; z-index: -2; inset: 0; background: radial-gradient(circle at 72% 28%, rgba(237,162,190,.3), transparent 24%), linear-gradient(135deg, rgba(255,255,255,.38), transparent 52%); }
 .cover-hero::after { content: "✦"; position: absolute; top: 44%; left: 7%; color: var(--berry); font-size: 3.8rem; transform: rotate(12deg); }
 .cover-edition { margin: 0 0 18px; color: var(--berry); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; }
-.cover-title { position: relative; z-index: 1; display: flex; flex-direction: column; color: var(--berry-dark); font-family: var(--sans); line-height: .72; }
+.cover-title { position: relative; z-index: 6; display: flex; flex-direction: column; color: var(--berry-dark); font-family: var(--sans); line-height: .72; }
 .cover-title > span { margin-left: .6%; font-size: clamp(1.1rem, 1.8vw, 1.65rem); font-weight: 700; text-transform: uppercase; letter-spacing: .22em; }
 .cover-title strong { margin-top: .14em; font-size: clamp(7.5rem, 17vw, 16.8rem); font-weight: 700; line-height: .68; letter-spacing: -.09em; }
+.cover-illustration { position: absolute; z-index: 4; top: 34%; left: 50%; width: min(550px, 46vw); margin: 0; pointer-events: none; transform: translateX(-50%); filter: drop-shadow(0 18px 16px rgba(104,22,61,.14)); }
+.cover-illustration img { width: 100%; height: auto; }
 .cover-folder { position: absolute; z-index: 3; bottom: -5%; left: 50%; width: min(720px, 56vw); height: 54%; transform: translateX(-50%); filter: drop-shadow(16px 22px 0 rgba(104,22,61,.15)); }
 .folder-back { position: absolute; top: 0; right: 7%; bottom: 0; left: 7%; border: 15px solid var(--berry-dark); border-bottom: 0; border-radius: 30px 30px 0 0; background: var(--blush); }
 .folder-sheet { position: absolute; top: 8%; right: 13%; bottom: 8%; left: 13%; display: flex; align-items: flex-start; justify-content: center; gap: 16px; padding-top: 28px; border: 2px solid var(--berry-dark); background: var(--white); color: var(--berry-dark); transform: rotate(-2.5deg); font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
@@ -366,6 +368,7 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
   .section-shell, .site-header { width: min(100% - 36px, 1400px); }
   .cover-hero { min-height: 900px; padding-top: 128px; }
   .cover-title strong { font-size: clamp(7rem, 18vw, 11rem); }
+  .cover-illustration { top: 34%; width: min(500px, 56vw); }
   .cover-folder { width: 66vw; height: 49%; }
   .cover-card-left { left: 0; bottom: 17%; }
   .cover-name { right: 0; top: 42%; }
@@ -404,6 +407,7 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
   .cover-edition { margin-bottom: 15px; font-size: .58rem; }
   .cover-title > span { font-size: .88rem; letter-spacing: .17em; }
   .cover-title strong { margin-top: .22em; font-size: clamp(5.2rem, 25vw, 7.5rem); line-height: .7; }
+  .cover-illustration { top: 29%; width: min(360px, 86vw); }
   .cover-hero::after { top: 38%; left: 5%; font-size: 2.5rem; }
   .cover-folder { bottom: -2%; width: 88vw; height: 44%; }
   .folder-back { border-width: 10px; border-radius: 22px 22px 0 0; }
