@@ -167,14 +167,18 @@ function openFolder(folder) {
         const rect = media.getBoundingClientRect();
         const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
         const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-        media.style.setProperty("--tilt-x", `${((.5 - y) * 7).toFixed(2)}deg`);
-        media.style.setProperty("--tilt-y", `${((x - .5) * 7).toFixed(2)}deg`);
+        media.style.setProperty("--tilt-x", `${((.5 - y) * 5.2).toFixed(2)}deg`);
+        media.style.setProperty("--tilt-y", `${((x - .5) * 5.2).toFixed(2)}deg`);
+        media.style.setProperty("--shift-x", `${((x - .5) * 5).toFixed(2)}px`);
+        media.style.setProperty("--shift-y", `${((y - .5) * 5).toFixed(2)}px`);
         media.style.setProperty("--shine-x", `${(x * 100).toFixed(1)}%`);
         media.style.setProperty("--shine-y", `${(y * 100).toFixed(1)}%`);
       });
       media.addEventListener("pointerleave", () => {
         media.style.setProperty("--tilt-x", "0deg");
         media.style.setProperty("--tilt-y", "0deg");
+        media.style.setProperty("--shift-x", "0px");
+        media.style.setProperty("--shift-y", "0px");
         media.style.setProperty("--shine-x", "50%");
         media.style.setProperty("--shine-y", "50%");
       });
