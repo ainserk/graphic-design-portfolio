@@ -160,7 +160,25 @@ function openFolder(folder) {
     figure.tabIndex = 0;
     figure.setAttribute("role", "button");
     figure.setAttribute("aria-label", `View ${item.title}`);
-    figure.innerHTML = `<img src="${item.src}" alt="${escapeText(item.title)}" loading="${index > 7 ? "lazy" : "eager"}" ${index < 4 ? 'fetchpriority="high"' : ""} width="${item.width}" height="${item.height}" /><figcaption><strong>${escapeText(item.title)}</strong><span>View artwork ↗</span></figcaption>`;
+    figure.innerHTML = `<span class="folder-artwork-media"><img src="${item.src}" alt="${escapeText(item.title)}" loading="${index > 7 ? "lazy" : "eager"}" ${index < 4 ? 'fetchpriority="high"' : ""} width="${item.width}" height="${item.height}" /><span class="folder-hologram" aria-hidden="true"></span></span><figcaption><strong>${escapeText(item.title)}</strong><span>View artwork ↗</span></figcaption>`;
+    const media = $(".folder-artwork-media", figure);
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      media.addEventListener("pointermove", (event) => {
+        const rect = media.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        media.style.setProperty("--tilt-x", `${((.5 - y) * 7).toFixed(2)}deg`);
+        media.style.setProperty("--tilt-y", `${((x - .5) * 7).toFixed(2)}deg`);
+        media.style.setProperty("--shine-x", `${(x * 100).toFixed(1)}%`);
+        media.style.setProperty("--shine-y", `${(y * 100).toFixed(1)}%`);
+      });
+      media.addEventListener("pointerleave", () => {
+        media.style.setProperty("--tilt-x", "0deg");
+        media.style.setProperty("--tilt-y", "0deg");
+        media.style.setProperty("--shine-x", "50%");
+        media.style.setProperty("--shine-y", "50%");
+      });
+    }
     figure.addEventListener("click", () => openLightbox(item));
     figure.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") openLightbox(item); });
     gallery.append(figure);
