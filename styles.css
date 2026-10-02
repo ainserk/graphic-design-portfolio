@@ -186,6 +186,13 @@ h1 em, h2 em, .about-lead em { font-family: var(--serif); font-weight: 400; lett
 .background-list div { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
 .background-list strong { font-size: .84rem; line-height: 1.35; text-transform: uppercase; letter-spacing: .035em; }
 .background-list div span { color: rgba(255,255,255,.78); font-size: .76rem; line-height: 1.5; }
+.achievement-column { grid-column: 1 / -1; margin-top: 12px; padding-top: 42px; border-top: 1px solid rgba(255,255,255,.42); }
+.achievement-heading { margin-bottom: 28px; }
+.achievement-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.achievement-grid article { position: relative; min-height: 180px; padding: 28px; border: 1px solid rgba(255,255,255,.28); border-radius: 10px; background: rgba(104,22,61,.34); overflow: hidden; }
+.achievement-grid article::after { content: "✦"; position: absolute; right: 18px; top: 14px; color: var(--accent); font-size: 1.15rem; }
+.achievement-grid strong { display: block; max-width: calc(100% - 32px); color: var(--accent); font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 400; line-height: .95; }
+.achievement-grid p { max-width: 390px; margin: 30px 0 0; color: rgba(255,255,255,.82); font-size: .76rem; line-height: 1.65; }
 
 .ticker { overflow: hidden; border-block: 1px solid var(--berry-dark); color: var(--white); background: var(--berry); transform: rotate(-1.2deg) scale(1.02); box-shadow: 0 7px 0 var(--pink); }
 .ticker-track { width: max-content; display: flex; align-items: center; gap: 32px; padding: 18px 0; animation: ticker 25s linear infinite; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
@@ -509,6 +516,9 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
   .intro-email { order: 5; align-items: flex-start; flex-direction: column; gap: 12px; margin-top: 0; }
   .intro-email a { max-width: 100%; font-size: clamp(1.2rem, 6vw, 1.7rem); overflow-wrap: anywhere; }
   .intro-background { order: 6; grid-template-columns: 1fr; gap: 48px; margin-top: 0; padding-top: 36px; }
+  .achievement-column { margin-top: 0; padding-top: 36px; }
+  .achievement-grid { grid-template-columns: 1fr; }
+  .achievement-grid article { min-height: 160px; }
   .background-list li { grid-template-columns: 1fr; gap: 7px; padding-block: 18px; }
   .background-list time { padding-left: 2px; }
   .hero { min-height: 950px; padding-top: 122px; }
