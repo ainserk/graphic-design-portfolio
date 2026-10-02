@@ -1,4 +1,13 @@
 const data = window.PORTFOLIO_DATA || { images: [], videos: [] };
+
+// Always open shared/reloaded portfolio links at the cover. In-page navigation
+// still works normally after the initial page load.
+if (window.location.hash) {
+  history.replaceState(null, "", `${location.pathname}${location.search}`);
+  window.scrollTo(0, 0);
+  window.addEventListener("load", () => window.scrollTo(0, 0), { once: true });
+}
+
 const folderGroups = [
   { slug: "social-media", title: "Social Media Posting", labels: ["Social Campaigns"] },
   { slug: "posters", title: "Posters", labels: ["Campaign Posters"] },

@@ -362,6 +362,7 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
 
 @media (min-width: 981px) {
   .designer-toolkit { top: -9%; left: 99%; width: 320px; }
+  .cover-illustration { top: clamp(390px, 27vw, 520px); }
 }
 
 @media (max-width: 980px) {
