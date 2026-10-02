@@ -215,7 +215,7 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
 .video-folder-shape { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 68%; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; border: 1px solid var(--berry-dark); border-radius: 15px 15px 9px 9px; background: var(--blush); box-shadow: 8px 9px 0 var(--pink); transition: transform .25s, box-shadow .25s, background .25s; }
 .video-folder-shape::before { content: ""; position: absolute; top: -27px; left: -1px; width: 47%; height: 38px; border: 1px solid var(--berry-dark); border-bottom: 0; border-radius: 14px 20px 0 0; background: inherit; }
 .video-folder-number { position: absolute; top: 14px; right: 17px; font-family: var(--hand); font-size: .9rem; font-weight: 700; }
-.video-folder-shape strong { position: relative; z-index: 1; max-width: 90%; font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.video-folder-shape strong { position: relative; z-index: 1; max-width: calc(100% - 12px); font-size: 1.35rem; line-height: 1; letter-spacing: -.045em; overflow-wrap: anywhere; text-transform: uppercase; }
 .video-folder-summary { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 10px; border-top: 1px solid rgba(104,22,61,.35); font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 .video-category-folder:nth-child(3n + 2) .video-folder-shape { background: var(--accent); }
 .video-category-folder:nth-child(3n) .video-folder-shape { background: #eab5ca; }
@@ -244,7 +244,7 @@ h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.7rem); line-height: .88; letter-
 .folder-shape { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 68%; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; border: 1px solid var(--berry-dark); border-radius: 15px 15px 9px 9px; background: var(--blush); box-shadow: 8px 9px 0 var(--pink); transition: transform .25s, box-shadow .25s, background .25s; }
 .folder-shape::before { content: ""; position: absolute; top: -27px; left: -1px; width: 47%; height: 38px; border: 1px solid var(--berry-dark); border-bottom: 0; border-radius: 14px 20px 0 0; background: var(--blush); transition: background .25s; }
 .folder-number { position: absolute; top: 14px; right: 17px; font-family: var(--hand); font-size: .9rem; font-weight: 700; }
-.folder-shape strong { position: relative; z-index: 1; max-width: 90%; font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: .95; letter-spacing: -.055em; text-transform: uppercase; }
+.folder-shape strong { position: relative; z-index: 1; max-width: calc(100% - 12px); font-size: 1.35rem; line-height: 1; letter-spacing: -.045em; overflow-wrap: anywhere; text-transform: uppercase; }
 .folder-meta { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 10px; border-top: 1px solid rgba(104,22,61,.35); font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 .category-folder:nth-child(3n + 2) .folder-shape, .category-folder:nth-child(3n + 2) .folder-shape::before { background: var(--accent); }
 .category-folder:nth-child(3n) .folder-shape, .category-folder:nth-child(3n) .folder-shape::before { background: #eab5ca; }
