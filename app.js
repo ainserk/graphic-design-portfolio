@@ -10,6 +10,7 @@ if (window.location.hash) {
 
 const folderGroups = [
   { slug: "social-media", title: "Social Media Posting", labels: ["Social Campaigns"] },
+  { slug: "tray-paper", title: "Tray Paper", labels: ["Print Collateral"] },
   { slug: "posters", title: "Posters", labels: ["Campaign Posters"] },
   { slug: "bunting", title: "Bunting", labels: ["Bunting"] },
   { slug: "durian-notes", title: "Durian Notes", labels: ["Editorial Notes"] },
@@ -19,7 +20,6 @@ const folderGroups = [
   { slug: "menu", title: "Menu", labels: ["Menu Design"] },
   { slug: "merchandise", title: "Merchandise", labels: ["Merchandise"] },
   { slug: "photography", title: "Photography", labels: ["Photography", "Wedding Photography"] },
-  { slug: "tray-paper", title: "Tray Paper", labels: ["Print Collateral"] },
   { slug: "tv-menu", title: "TV Menu", labels: ["Digital Menus"] },
   { slug: "wedding-cards", title: "Wedding Card Freelance", labels: ["Wedding Stationery"] },
 ];
